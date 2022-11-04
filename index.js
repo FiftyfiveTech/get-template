@@ -26,9 +26,17 @@ const writeIntoFile = async (path, projectName, branch) => {
           {
             cwd: `./${projectName}`,
           },
-          function (error, stdout, stderr) {}
+          function (error, stdout, stderr) {
+            if(stdout){
+              console.log("congratulations! your project is ready to go");
+              console.log("Please follow below commands to start your applications");
+              console.log("cd {Project-directory}");
+              console.log("npm start");
+            } else {
+              console.log(" there is some issue with installing packages");
+            }
+          }
         );
-        console.log("congratulations! your project is ready to go");
       } else {
         console.log(" Not able to authenticate you");
       }
@@ -75,7 +83,7 @@ const writeIntoFile = async (path, projectName, branch) => {
   ]);
   if (project === "react-javascript") {
     const { path, name, branch } = repos["react-javascript"];
-    console.log(`Cloning ${name} into your local machine`);
+    console.log(`Creating ${name} project into your local machine`);
     if (multipleUser) {
       path.replace("github.com", userName);
     }

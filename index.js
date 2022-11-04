@@ -90,14 +90,14 @@ const writeIntoFile = async (path, projectName, branch) => {
     if (multipleUser) {
       path.replace("github.com", userName);
     }
-    await writeIntoFile(path, projectName, branch);
     cloningSpinner.succeed("Project created");
+    return writeIntoFile(path, projectName, branch);
   } else {
     const { path, name, branch } = repos["react-typescript"];
     if (multipleUser) {
       path.replace("github.com", userName);
     }
-    await writeIntoFile(path, projectName, branch);
     cloningSpinner.succeed("Project created");
+    return writeIntoFile(path, projectName, branch);
   }
 })();

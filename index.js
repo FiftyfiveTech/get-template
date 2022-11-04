@@ -4,6 +4,7 @@ import git from "gift";
 import inquirer from "inquirer";
 import { exec } from "child_process";
 import { repos } from "./repositories.js";
+import ora from "ora";
 
 const writeIntoFile = async (path, projectName, branch) => {
   await new Promise((resolve) =>
@@ -21,6 +22,8 @@ const writeIntoFile = async (path, projectName, branch) => {
             return console.error(err);
           }
         });
+        const spinner = ora("Installing your npm packages").start();
+
         var Proc = exec(
           "npm i",
           {
@@ -28,9 +31,9 @@ const writeIntoFile = async (path, projectName, branch) => {
           },
           function (error, stdout, stderr) {
             if(stdout){
-              console.log("congratulations! your project is ready to go");
+              spinner.succeed("congratulations! your project is ready to go");
               console.log("Please follow below commands to start your applications");
-              console.log("cd {Project-directory}");
+              console.log(`cd ${projectName}`);
               console.log("npm start");
             } else {
               console.log(" there is some issue with installing packages");
@@ -81,19 +84,20 @@ const writeIntoFile = async (path, projectName, branch) => {
       message: "Enter the name for your Project:",
     },
   ]);
+  const cloningSpinner = ora("Creating Project files on your local machine").start();
   if (project === "react-javascript") {
     const { path, name, branch } = repos["react-javascript"];
-    console.log(`Creating ${name} project into your local machine`);
     if (multipleUser) {
       path.replace("github.com", userName);
     }
-    return writeIntoFile(path, projectName, branch);
+    await writeIntoFile(path, projectName, branch);
+    cloningSpinner.succeed("Project created");
   } else {
     const { path, name, branch } = repos["react-typescript"];
-    console.log(`Cloning ${name} into your local machine`);
     if (multipleUser) {
       path.replace("github.com", userName);
     }
-    return writeIntoFile(path, projectName, branch);
+    await writeIntoFile(path, projectName, branch);
+    cloningSpinner.succeed("Project created");
   }
 })();

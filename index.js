@@ -28,7 +28,7 @@ const writeIntoFile = async (path, projectName, branch) => {
           },
           function (error, stdout, stderr) {}
         );
-        console.log(Proc);
+        console.log("congratulations! your project is ready to go");
       } else {
         console.log(" Not able to authenticate you");
       }

@@ -1,11 +1,11 @@
 {
-  "name": "get-template",
+  "name": "@fiftyfivetech/get-template",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "bin": {
-    "get-template": "index.js"
+    "@fiftyfivetech/get-template": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
